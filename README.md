@@ -21,7 +21,22 @@
 随机森林通过 `class_weight='balanced'` + **阈值下调至 0.10**，把主胜 **F1 从 0 推到 0.27**，**召回率 40 %**，正式选为 **决赛模型**。
 
 ---
+## 6.1 深度学习增量（PyTorch）
 
+| 版本 | 正则化 | 主胜 F1 | Recall | 说明 |
+|---|---|---|---|---|
+| 基础 MLP | 无 | 0.36 | 40 % | 首个深度学习 baseline |
+| 正则化 MLP | Dropout 0.3 + BatchNorm + 早停 | **0.50** | **60 %** | 验证损失平稳，无过拟合 |
+
+**技术亮点**  
+- 手写 `nn.Sequential` 三层网络，**ReLU 非线性**挖掘隐藏交互  
+- 用 **BCEWithLogitsLoss** 避免数值不稳  
+- **早停 39 epoch**，验证损失下降平滑（见图）  
+- **网格阈值调优**，主胜召回率提升 20 个百分点  
+
+<div align="center">
+<img src="https://github.com/11joshua747/ChineseSuperLeague/raw/main/figures/11_train_curve.png" width="500"/>
+</div>
 ## 7 项目里程碑（Git 日志可视化）
 
 | 日期 | 关键提交 | 复试一句话 |
